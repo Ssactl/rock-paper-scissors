@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors</title>
+    <script>
+      let computerChoice = ["Rock", "Paper", "Scissors"];
+      function getComputerChoice() {
+        return computerChoice[
+          Math.floor(Math.random() * computerChoice.length)
+        ];
+      }
+      function playRound(playerSelection, computerSelection) {
+        // your code here!
+        let playerS = playerSelection.toLowerCase();
+        let computerS = computerSelection.toLowerCase();
+
+        if (playerS === computerS) {
+          return "draw!";
+        } else if (playerS === "rock") {
+          if (computerS === "paper") {
+            return "You Lose! Paper beats Rock";
+          } else {
+            return "You win! Rock beats Scissors";
+          }
+        } else if (playerS === "paper") {
+          if (computerS === "rock") {
+            return "You win! Paper beats Rock";
+          } else {
+            return "You lose! Scissors beats Paper";
+          }
+        } else {
+          if (computerS === "rock") {
+            return "You lose! Rock beats Scissors";
+          } else {
+            return "You win! Scissors beats Paper";
+          }
+        }
+      }
+
+      function game() {
+        let playerSelection;
+        let computerSelection;
+        for (let i = 0; i < 5; i++) {
+          playerSelection = prompt("What is your choice!");
+          computerSelection = getComputerChoice();
+          console.log(playRound(playerSelection, computerSelection));
+        }
+      }
+
+      game();
+    </script>
+  </head>
+  <body></body>
+</html>
