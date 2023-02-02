@@ -11,8 +11,12 @@
     <button>Paper</button>
     <button>Scissors</button>
     <div id="gameresult"></div>
+    <div id="gamescore"></div>
   </body>
   <script>
+    let playerScore = 0;
+    let computerScore = 0;
+
     let computerChoice = ["Rock", "Paper", "Scissors"];
     function getComputerChoice() {
       return computerChoice[Math.floor(Math.random() * computerChoice.length)];
@@ -26,20 +30,26 @@
         return "draw!";
       } else if (playerS === "rock") {
         if (computerS === "paper") {
+          computerScore++;
           return "You Lose! Paper beats Rock";
         } else {
+          playerScore++;
           return "You win! Rock beats Scissors";
         }
       } else if (playerS === "paper") {
         if (computerS === "rock") {
+          playerScore++;
           return "You win! Paper beats Rock";
         } else {
+          computerScore++;
           return "You lose! Scissors beats Paper";
         }
       } else {
         if (computerS === "rock") {
+          computerScore++;
           return "You lose! Rock beats Scissors";
         } else {
+          playerScore++;
           return "You win! Scissors beats Paper";
         }
       }
@@ -48,14 +58,22 @@
     const buttons = document.getElementsByTagName("button");
     const result = document.getElementById("gameresult");
     for (let i = 0; i < buttons.length; i++) {
-      buttons[i].addEventListener(
-        "click",
-        () =>
-          (result.innerText = playRound(
-            buttons[i].innerText,
-            getComputerChoice()
-          ))
-      );
+      buttons[i].addEventListener("click", function () {
+        result.innerText = playRound(buttons[i].innerText, getComputerChoice());
+
+        if (playerScore === 5) {
+          document.getElementById("gamescore").innerText = "winner: you";
+          playerScore = 0;
+          computerScore = 0;
+        } else if (computerScore === 5) {
+          document.getElementById("gamescore").innerText = "winner: computer";
+          playerScore = 0;
+          computerScore = 0;
+        } else {
+          document.getElementById("gamescore").innerText =
+            "you:" + playerScore + "compter:" + computerScore;
+        }
+      });
       //button[0].firstChild:object type; button[0].innerText:string type; button[0].innerHTML:string type;
       //but they both return same content:"Rock".
     }
